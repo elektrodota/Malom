@@ -1,4 +1,4 @@
-package Model;
+package Controller;
 
 /*-
  * #%L
@@ -21,13 +21,17 @@ package Model;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-public class GameStatus {
-    PlayerInterface player1,player2;
-    public GameStatus(Player player1,Player player2)
-    {
-        this.player1=player1;
-        this.player2=player2;
+
+import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GameController implements Initializable {
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
-
-
 }

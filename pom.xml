@@ -16,7 +16,7 @@
     </organization>
 
     <description>
-        Ez a program, egy malomjáték, Lasker szabályai szerint.
+        This program is a Nine Man's Morris game.
     </description>
 
     <properties>
@@ -34,10 +34,10 @@
     </developers>
 
     <scm>
-        <connection></connection>
-        <developerConnection></developerConnection>
+        <connection>scm:git:////github.com/elektrodota/Malom.git</connection>
+        <developerConnection>scm:git:git@github.com/elektrodota/Malom.git</developerConnection>
         <tag>Malom</tag>
-        <url></url>
+        <url>https://github.com/elektrodota/Malom</url>
     </scm>
 
     <licenses>
@@ -75,6 +75,7 @@
                             <exclude>**/Controller/**/*</exclude>
                         </excludes>
                     </instrumentation>
+                    <check/>
                 </configuration>
                 <reportSets>
                     <reportSet>
@@ -130,6 +131,33 @@
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.16</version>
+                <configuration>
+                    <licenseName>gpl_v3</licenseName>
+                    <roots>
+                        <root>src/main/java</root>
+                        <root>src/main/resources</root>
+                    </roots>
+                    <excludedScopes>test</excludedScopes>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>license-management</id>
+                        <goals>
+                            <goal>update-file-header</goal>
+
+                            <goal>update-project-license</goal>
+
+                            <goal>add-third-party</goal>
+                        </goals>
+                        <phase>process-sources</phase>
                     </execution>
                 </executions>
             </plugin>
