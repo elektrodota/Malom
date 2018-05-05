@@ -19,5 +19,4 @@ public class Piece implements PieceInterface {
         this.x=x;
         this.y=y;
     }
-
 }

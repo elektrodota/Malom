@@ -1,10 +1,6 @@
 package Model;
 
 public enum PieceType {
-    WHITE(1),BLACK(-1);
+    WHITE,BLACK;
 
-    PieceType(int type)
-    {
-
-    }
 }

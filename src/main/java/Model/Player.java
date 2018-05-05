@@ -18,7 +18,7 @@ public class Player implements PlayerInterface {
     @Override
     public void setWhite(boolean isWhite)
     {
-        isWhite=isWhite;
+        this.isWhite=isWhite;
     }
     @Override
     public boolean getWhite()

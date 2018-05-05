@@ -7,18 +7,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
 public class PieceDrawer extends StackPane {
-    private Piece piece;
     private static int TILE_SIZE=50;
-    public PieceDrawer(Piece piece)
+    private PieceDrawer()
     {
-        this.piece=piece;
     }
-    public void draw()
+    public void draw(Piece piece)
     {
+
+        Ellipse background=new Ellipse(TILE_SIZE*0.32,TILE_SIZE*0.26);
+        background.setStroke(Color.BLACK);
+        background.setStrokeWidth(TILE_SIZE*0.35);
+        //
         Ellipse ellipse=new Ellipse(TILE_SIZE*0.32,TILE_SIZE*0.26);
         ellipse.setFill(piece.getPieceType()== PieceType.WHITE ? Color.GHOSTWHITE :Color.CHOCOLATE);
         ellipse.setStroke(Color.BLACK);
         ellipse.setStrokeWidth(TILE_SIZE*0.35);
-        getChildren().addAll(ellipse);
+        getChildren().addAll(background,ellipse);
     }
 }

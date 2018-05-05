@@ -1,6 +1,6 @@
 package Model;
 
 public interface NewGameStatusCheckerInterface {
-    void moveCheck(GameStatusInterface gameStatus );
-    void putDownCheck(GameStatusInterface gameStatus);
+    void moveCheck(GameStatus gameStatus );
+    void putDownCheck(GameStatus gameStatus);
 }
