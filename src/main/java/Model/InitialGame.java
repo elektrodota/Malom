@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class InitialGame {
     private InitialGame(){}
-    public GameStatus makeUnitialPosition()
+    public static GameStatus makeInitialPosition()
     {
         List<Piece> pieces1=new ArrayList<Piece>();
         List<Piece> pieces2=new ArrayList<Piece>();

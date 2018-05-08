@@ -28,12 +28,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-public class PieceDrawer extends StackPane {
+public class PieceDrawer extends StackPane implements Drawer {
     private static int TILE_SIZE=50;
-    private PieceDrawer()
+    Piece piece;
+    public PieceDrawer(Piece piece)
     {
+        this.piece=piece;
     }
-    public void draw(Piece piece)
+    @Override
+    public void draw()
     {
 
         Ellipse background=new Ellipse(TILE_SIZE*0.32,TILE_SIZE*0.26);

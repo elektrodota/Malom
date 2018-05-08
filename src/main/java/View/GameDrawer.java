@@ -26,19 +26,34 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-public class GameDrawer extends Pane {
-    Group tileGroup,pieceGroup;
+public class GameDrawer extends Pane implements Drawer {
 
-    public GameDrawer(Tile board[][]) {
-        this.tileGroup = new Group();
-        this.pieceGroup=new Group();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                this.tileGroup.getChildren().add(board[i][j]);
-            }
-        }
+    Tile[][] board=new Tile[3][3];
+    public GameDrawer(Tile[][] board) {
+            addNewBoard(board);
+
+    }
+    public void addNewBoard(Tile[][] board)
+    {
+        for(int i=0;i<3;i++)
+         for(int j=0;j<3;j++)
+         {
+             this.board[i][j]=board[i][j];
+         }
     }
 
 
+    @Override
+    public void draw() {
 
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                this.getChildren().add(board[i][j]);
+                if(board[i][j].hasPiece())
+                    this.getChildren().add(new PieceDrawer(board[i][j].getPiece()));
+            }
+        }
+    }
 }

@@ -22,6 +22,9 @@ package Controller;
  * #L%
  */
 
+import Model.GameStatus;
+import Model.InitialGame;
+import View.Tile;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -29,9 +32,19 @@ import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
 
+    Tile board[][]=new Tile[3][3];
+    GameStatus gameStatus;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        gameStatus=InitialGame.makeInitialPosition();
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                board[i][j]=new Tile(i,j);
+            }
+        }
     }
 }
