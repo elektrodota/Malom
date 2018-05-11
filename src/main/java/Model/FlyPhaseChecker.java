@@ -22,15 +22,28 @@ package Model;
  * #L%
  */
 
+/**
+ *  FlyPhaseChecker class helps to decide whether the game is in flying phase.
+ */
 public class FlyPhaseChecker {
     PutDownPhaseChecker putDownPhaseChecker;
     MovingPhaseChecker movingPhaseChecker;
+
+    /**
+     * Constructs FlyPhaseChecker object.
+     */
     public FlyPhaseChecker()
     {
         this.putDownPhaseChecker=new PutDownPhaseChecker();
         this.movingPhaseChecker =new MovingPhaseChecker();
     }
-    private boolean isFlyingPhase(Player player)
+
+    /**
+     * Checks whether the Player can fly.
+     * @param player
+     * @return
+     */
+    public boolean isFlyingPhase(Player player)
     {
         return !putDownPhaseChecker.isPutDownPhase(player) && !movingPhaseChecker.isMovingPhase(player) && player.getInBoard().size()==3;
     }

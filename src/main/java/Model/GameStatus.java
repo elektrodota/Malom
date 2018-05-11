@@ -28,23 +28,15 @@ import java.util.List;
 public class GameStatus {
     Player player1,player2;
     public List<List<Integer>> Neighbours;
-    public List<List<Integer>> mills;
-    public GameStatus(Player player1, Player player2, Integer[][] neighbours, Integer[][] mills)
+
+    public GameStatus(Player player1, Player player2, Integer[][] neighbours)
     {
+        ArrayToList atl=new ArrayToList();
         this.player1=player1;
         this.player2=player2;
-        this.Neighbours=twoDArrayToList(neighbours);
-        this.mills=twoDArrayToList(mills);
+        this.Neighbours=atl.twoDArrayToList(neighbours);
     }
 
-    public List<List<Integer>> twoDArrayToList(Integer[][] twoDArray) {
-        List<List<Integer>> list = new ArrayList<List<Integer>>();
-        for (Integer[] array : twoDArray) {
-            list.add(new ArrayList<Integer>(Arrays.asList(array)));
-
-        }
-        return list;
-    }
 
     public Player getPlayer1() {
         return player1;

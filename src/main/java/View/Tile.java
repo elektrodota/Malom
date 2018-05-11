@@ -45,7 +45,9 @@ public class Tile extends StackPane {
 
     private int position;
     public boolean hasPiece() {
-        return piece != null;
+        if(piece==null)
+            return false;
+        return true;
     }
 
     public Piece getPiece() {
@@ -71,6 +73,7 @@ public class Tile extends StackPane {
     }
 
     public Tile(int x, int y,int position) {
+        this.piece=null;
         this.position=position;
         ell=new Ellipse();
         ell.setRadiusX(TILE_SIZE);

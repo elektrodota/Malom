@@ -29,6 +29,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The main class of the project.
+ */
 
 public class MainApp extends Application {
 

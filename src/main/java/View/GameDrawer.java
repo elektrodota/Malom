@@ -42,7 +42,6 @@ public class GameDrawer extends Pane{
             switch (i) {
                 case 0:
                     board[i * 3 + 0] = new Tile(0, 0,i * 3 + 0);
-
                     board[i * 3 + 1] = new Tile(0, 3,i * 3 + 1);
                     board[i * 3 + 2] = new Tile(0, 6,i * 3 + 2);
 

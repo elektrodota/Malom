@@ -4,7 +4,7 @@ package Model;
  * #%L
  * Malom
  * %%
- * Copyright (C) 2018 GNU GENERAL PUBLIC LICENSE
+ * Copyright (C) 2018 University of Debrecen
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,9 +22,28 @@ package Model;
  * #L%
  */
 
-public interface PlayerInterface {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-        void movePiece(Piece piece, int boardPosition);
-        void setWhite(boolean whoIsWhite);
-        PieceType getWhite();
+/**
+ * Creates ArrayList from arrays.
+ */
+public class ArrayToList {
+    public ArrayToList(){}
+
+    /**
+     * Returns a 2D ArrayList from an array.
+     * @param twoDArray
+     * @return
+     */
+    public List<List<Integer>> twoDArrayToList(Integer[][] twoDArray) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        for (Integer[] array : twoDArray) {
+            list.add(new ArrayList<Integer>(Arrays.asList(array)));
+
+        }
+        return list;
+    }
+
 }

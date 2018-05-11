@@ -66,9 +66,9 @@ public class Player implements PlayerInterface {
         this.isWhite=isWhite;
     }
     @Override
-    public boolean getWhite()
+    public PieceType getWhite()
     {
-        return this.isWhite;
+        return this.isWhite?PieceType.WHITE:PieceType.BLACK;
     }
 
 

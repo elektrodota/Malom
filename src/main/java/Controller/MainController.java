@@ -39,7 +39,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controls main window.
+ */
 public class MainController implements Initializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class.getName());
 
@@ -52,6 +54,10 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * If new game Button pressed it switches to Game window.
+     * @param e
+     */
     @FXML
     private void toGameAction(ActionEvent e)
     {
