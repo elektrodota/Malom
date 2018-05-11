@@ -23,5 +23,6 @@ package Model;
  */
 
 public interface PieceInterface {
-    void moveToPosition(int x,int y);
+    void moveToPosition(int position);
+    int getPosition();
 }

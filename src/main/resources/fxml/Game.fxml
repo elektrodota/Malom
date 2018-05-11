@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="pane" prefHeight="720.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GameController">
+   <children>
+      <HBox layoutX="48.0" layoutY="35.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="400.0" prefWidth="200.0">
+                     <children>
+                        <TextField text="Player1" />
+                        <TextField fx:id="POne" text="Remaining pieces: 9" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox fx:id="gameBox" prefHeight="690.0" prefWidth="690.0" />
+            <VBox prefHeight="400.0" prefWidth="200.0">
+               <children>
+                  <TextField text="Player 2" />
+                   <TextField fx:id="PTwo" text="Remaining pieces: 9" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

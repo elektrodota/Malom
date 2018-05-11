@@ -1,5 +1,9 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /*-
  * #%L
  * Malom
@@ -22,12 +26,40 @@ package Model;
  * #L%
  */
 public class GameStatus {
-    PlayerInterface player1,player2;
-    public GameStatus(Player player1,Player player2)
+    Player player1,player2;
+    public List<List<Integer>> Neighbours;
+    public List<List<Integer>> mills;
+    public GameStatus(Player player1, Player player2, Integer[][] neighbours, Integer[][] mills)
     {
         this.player1=player1;
         this.player2=player2;
+        this.Neighbours=twoDArrayToList(neighbours);
+        this.mills=twoDArrayToList(mills);
     }
 
+    public List<List<Integer>> twoDArrayToList(Integer[][] twoDArray) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        for (Integer[] array : twoDArray) {
+            list.add(new ArrayList<Integer>(Arrays.asList(array)));
 
+        }
+        return list;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+    public boolean isNeighbour(int from,int to)
+    {
+        for(int i=0;i<Neighbours.get(from).size();i++)
+        {
+            if(Neighbours.get(from).get(i)==to)
+                return true;
+        }
+        return false;
+    }
 }

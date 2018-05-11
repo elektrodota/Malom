@@ -1,4 +1,4 @@
-package View;
+package Model;
 
 /*-
  * #%L
@@ -22,6 +22,17 @@ package View;
  * #L%
  */
 
-public interface Drawer {
-    public void draw();
+public class FlyPhaseChecker {
+    PutDownPhaseChecker putDownPhaseChecker;
+    MovingPhaseChecker movingPhaseChecker;
+    public FlyPhaseChecker()
+    {
+        this.putDownPhaseChecker=new PutDownPhaseChecker();
+        this.movingPhaseChecker =new MovingPhaseChecker();
+    }
+    private boolean isFlyingPhase(Player player)
+    {
+        return !putDownPhaseChecker.isPutDownPhase(player) && !movingPhaseChecker.isMovingPhase(player) && player.getInBoard().size()==3;
+    }
+
 }

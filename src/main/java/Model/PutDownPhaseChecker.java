@@ -22,28 +22,13 @@ package Model;
  * #L%
  */
 
-public class Piece implements PieceInterface {
-    private int position;
-    private PieceType pieceType;
-    public Piece(int position, PieceType pieceType)
+public class PutDownPhaseChecker {
+
+    public PutDownPhaseChecker()
+    {}
+    public boolean isPutDownPhase(Player player)
     {
-        this.position=position;
-        this.pieceType=pieceType;
+        return player.getInHand().size()>0;
+
     }
-
-    public PieceType getPieceType() {
-        return pieceType;
-    }
-
-    @Override
-    public void moveToPosition(int position) {
-        this.position=position;
-    }
-
-    @Override
-    public int getPosition() {
-        return position;
-    }
-
-
 }

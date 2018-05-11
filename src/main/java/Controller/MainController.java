@@ -22,12 +22,20 @@ package Controller;
  * #L%
  */
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -37,9 +45,30 @@ public class MainController implements Initializable {
 
     @FXML
     private AnchorPane szar;
-
+    @FXML
+    private Button newGameButton;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    @FXML
+    private void toGameAction(ActionEvent e)
+    {
+        Stage stage=(Stage) ((Node)(e.getSource())).getScene().getWindow();
+        try{
+            FXMLLoader fxmlLoader= new  FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
+            Parent root=(Parent)fxmlLoader.load();
+
+
+            Scene sc=new Scene(root);
+            GameController controller = fxmlLoader.<GameController>getController();
+            controller.createInitialGame();
+            stage.setScene(sc);
+            stage.show();
+        }catch (IOException err)
+        {
+            LOGGER.error(err.toString());
+        }
     }
 }

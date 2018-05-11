@@ -22,28 +22,17 @@ package Model;
  * #L%
  */
 
-public class Piece implements PieceInterface {
-    private int position;
-    private PieceType pieceType;
-    public Piece(int position, PieceType pieceType)
+
+public class GameLost {
+
+    PutDownPhaseChecker putDownPhaseChecker;
+    public GameLost()
     {
-        this.position=position;
-        this.pieceType=pieceType;
+        putDownPhaseChecker =new PutDownPhaseChecker();
+
     }
-
-    public PieceType getPieceType() {
-        return pieceType;
+    public boolean isLost(Player player)
+    {
+        return  !putDownPhaseChecker.isPutDownPhase(player) &&player.getInBoard().size()<3;
     }
-
-    @Override
-    public void moveToPosition(int position) {
-        this.position=position;
-    }
-
-    @Override
-    public int getPosition() {
-        return position;
-    }
-
-
 }

@@ -22,19 +22,42 @@ package Model;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player implements PlayerInterface {
-    private List<PieceInterface> pieces;
+    private List<PieceInterface> inBoard;
+    private List<PieceInterface> inHand;
     private boolean isWhite;
+    private boolean isFlyingAllowed;
     public Player(List<Piece> pieceLiest, boolean isWhite)
     {
-        this.pieces.addAll(pieceLiest);
+        this.inHand=new ArrayList<>();
+        this.inHand.addAll(pieceLiest);
+        this.inBoard=new ArrayList<>();
         this.isWhite=isWhite;
+        isFlyingAllowed=false;
     }
+
+    public boolean isFlyingAllowed() {
+        return isFlyingAllowed;
+    }
+
+    public List<PieceInterface> getInBoard() {
+        return inBoard;
+    }
+
+    public List<PieceInterface> getInHand() {
+        return inHand;
+    }
+
+    public void setFlyingAllowed(boolean flyingAllowed) {
+        isFlyingAllowed = flyingAllowed;
+    }
+
     @Override
-    public void movePiece(Piece piece,int boardX,int boardY) {
-        piece.moveToPosition(boardX,boardY);
+    public void movePiece(Piece piece,int boardPosition) {
+        piece.moveToPosition(boardPosition);
     }
 
     @Override

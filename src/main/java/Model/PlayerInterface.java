@@ -24,7 +24,7 @@ package Model;
 
 public interface PlayerInterface {
 
-        void movePiece(Piece piece, int boardX, int boardY);
+        void movePiece(Piece piece, int boardPosition);
         void setWhite(boolean whoIsWhite);
         boolean getWhite();
 }

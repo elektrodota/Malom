@@ -24,13 +24,26 @@ package View;
 
 
 import Model.Piece;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-public class Tile extends Ellipse {
-    public static final int TILE_SIZE = 50;
-    private Piece piece;
+import static Controller.GameController.lineLength;
 
+public class Tile extends StackPane {
+    public static final int TILE_SIZE = 30;
+    private Piece piece;
+    public  Ellipse ell;
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    private int position;
     public boolean hasPiece() {
         return piece != null;
     }
@@ -38,17 +51,34 @@ public class Tile extends Ellipse {
     public Piece getPiece() {
         return piece;
     }
-
-    public void setPiece(Piece piece) {
-        this.piece = piece;
+    public void setDefaultFill()
+    {
+        ell.setFill(Color.BLUE);
     }
 
-    public Tile(int x, int y) {
+    public void setActiveFill()
+    {
+        ell.setFill(Color.GREEN);
+    }
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+        this.getChildren().add(new PieceDrawer(piece));
+    }
+    public void removePiece()
+    {
+        this.piece=null;
+        this.getChildren().remove(1,this.getChildren().size());
+    }
 
-        setRadiusX(TILE_SIZE);
-        setRadiusY(TILE_SIZE);
-        relocate((x + 1) * 100 + x * TILE_SIZE, (y + 1) * 100 + y * TILE_SIZE);
-        setFill(Color.AZURE);
+    public Tile(int x, int y,int position) {
+        this.position=position;
+        ell=new Ellipse();
+        ell.setRadiusX(TILE_SIZE);
+        ell.setRadiusY(TILE_SIZE);
+        relocate(200+(x + 1) * lineLength + x * TILE_SIZE, (y + 1) * lineLength + y * TILE_SIZE);
+        setDefaultFill();
+        this.getChildren().add(ell);
+
     }
 
 }
