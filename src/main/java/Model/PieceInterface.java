@@ -22,7 +22,20 @@ package Model;
  * #L%
  */
 
+/**
+ * PieceInterface interface represents an abstraction of a game piece.
+ * PieceInterface interface provides methods to move a piece to a position and get the actual position of the piece.
+ */
 public interface PieceInterface {
+    /**
+     * Moves the piece to the @code{position}.
+     * @param position
+     */
     void moveToPosition(int position);
+
+    /**
+     * Returns the actual position of the piece.
+     * @return
+     */
     int getPosition();
 }

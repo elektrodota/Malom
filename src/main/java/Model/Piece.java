@@ -22,15 +22,28 @@ package Model;
  * #L%
  */
 
+/**
+ * Piece class represents a piece for the game.
+ */
 public class Piece implements PieceInterface {
     private int position;
     private PieceType pieceType;
+
+    /**
+     * Constructs Piece object.
+     * @param position
+     * @param pieceType
+     */
     public Piece(int position, PieceType pieceType)
     {
         this.position=position;
         this.pieceType=pieceType;
     }
 
+    /**
+     * Returns the color of the piece.
+     * @return
+     */
     public PieceType getPieceType() {
         return pieceType;
     }

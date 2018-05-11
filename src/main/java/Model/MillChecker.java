@@ -26,10 +26,16 @@ import View.Tile;
 
 import java.util.List;
 
+/**
+ * Helps to decide whether the Player has Mill.
+ */
 public class MillChecker {
 
     public List<List<Integer>> mills;
 
+    /**
+     * Constructs MillChecker object.
+     */
     public MillChecker() {
         ArrayToList atl = new ArrayToList();
         mills = atl.twoDArrayToList(new Integer[][]{
@@ -53,7 +59,13 @@ public class MillChecker {
     }
 
 
-    public boolean mill(Tile tile, Tile board[]) {
+    /**
+     * Return true if the Player has mill.
+     * @param tile
+     * @param board
+     * @return
+     */
+    public boolean isMill(Tile tile, Tile board[]) {
         int position = tile.getPosition();
         for (List<Integer> list : mills) {
             if (list.contains(position)) {

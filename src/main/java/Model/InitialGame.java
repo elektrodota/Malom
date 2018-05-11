@@ -31,6 +31,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * InitialGame class creates the starting position of the game.
+ */
 public class InitialGame {
     private static final Logger LOGGER = LoggerFactory.getLogger(InitialGame.class.getName());
 
@@ -66,6 +69,11 @@ public class InitialGame {
     public InitialGame() {
     }
 
+    /**
+     * Creates the starting @code{}GameStatus}.
+     * @return
+     * @throws IOException
+     */
     public GameStatus makeInitialPosition() throws IOException {
         List<Piece> pieces1 = new ArrayList<Piece>();
         List<Piece> pieces2 = new ArrayList<Piece>();

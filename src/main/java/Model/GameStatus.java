@@ -25,10 +25,20 @@ import java.util.List;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+
+/**
+ * GameStatus class represents the status of the game.
+ */
 public class GameStatus {
     Player player1,player2;
     public List<List<Integer>> Neighbours;
 
+    /**
+     * Construct GameStatus object
+     * @param player1
+     * @param player2
+     * @param neighbours
+     */
     public GameStatus(Player player1, Player player2, Integer[][] neighbours)
     {
         ArrayToList atl=new ArrayToList();
@@ -37,14 +47,29 @@ public class GameStatus {
         this.Neighbours=atl.twoDArrayToList(neighbours);
     }
 
-
+    /**
+     * Returns player1 Player.
+     * @return
+     */
     public Player getPlayer1() {
         return player1;
     }
 
+
+    /**
+     * Returns player2 Player.
+     * @return
+     */
     public Player getPlayer2() {
         return player2;
     }
+
+    /**
+     * Helps to decide whether @code{from} and @code{to} is neighbours.
+     * @param from
+     * @param to
+     * @return
+     */
     public boolean isNeighbour(int from,int to)
     {
         for(int i=0;i<Neighbours.get(from).size();i++)

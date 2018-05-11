@@ -25,34 +25,42 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Player class represents a player.
+ */
+
 public class Player implements PlayerInterface {
     private List<PieceInterface> inBoard;
     private List<PieceInterface> inHand;
     private boolean isWhite;
-    private boolean isFlyingAllowed;
+
+    /**
+     * Contructs Player object.
+     * @param pieceLiest
+     * @param isWhite
+     */
     public Player(List<Piece> pieceLiest, boolean isWhite)
     {
         this.inHand=new ArrayList<>();
         this.inHand.addAll(pieceLiest);
         this.inBoard=new ArrayList<>();
         this.isWhite=isWhite;
-        isFlyingAllowed=false;
     }
 
-    public boolean isFlyingAllowed() {
-        return isFlyingAllowed;
-    }
-
+    /**
+     * Returns the pieces from the board.
+     * @return
+     */
     public List<PieceInterface> getInBoard() {
         return inBoard;
     }
 
+    /**
+     * Returns the pieces from the players hand.
+     * @return
+     */
     public List<PieceInterface> getInHand() {
         return inHand;
-    }
-
-    public void setFlyingAllowed(boolean flyingAllowed) {
-        isFlyingAllowed = flyingAllowed;
     }
 
     @Override
@@ -66,7 +74,7 @@ public class Player implements PlayerInterface {
         this.isWhite=isWhite;
     }
     @Override
-    public PieceType getWhite()
+    public PieceType getPieceType()
     {
         return this.isWhite?PieceType.WHITE:PieceType.BLACK;
     }

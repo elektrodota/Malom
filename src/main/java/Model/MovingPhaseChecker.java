@@ -22,12 +22,21 @@ package Model;
  * #L%
  */
 
+/**
+ * MovingPhaseChecker class helps to decide whether the game is in put down phase.
+ */
 public class MovingPhaseChecker {
     PutDownPhaseChecker putDownPhaseChecker;
     public MovingPhaseChecker()
     {
         putDownPhaseChecker=new PutDownPhaseChecker();
     }
+
+    /**
+     * Returns true if the player is in put down phase.
+     * @param player
+     * @return
+     */
     public boolean isMovingPhase(Player player)
     {
         return !putDownPhaseChecker.isPutDownPhase(player) && player.getInBoard().size()>3;

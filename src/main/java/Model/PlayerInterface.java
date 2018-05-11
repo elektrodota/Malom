@@ -22,9 +22,28 @@ package Model;
  * #L%
  */
 
+/**
+ * Represents an abstraction of a player for a game.
+ * PlayerInterface has methods to move the player pieces, set and get player color.
+ */
 public interface PlayerInterface {
 
+        /**
+         * Move the @code{piece} to the @{boardPosition}.
+         * @param piece The piece which has to move
+         * @param boardPosition The position in the board where the piece moves.
+         */
         void movePiece(Piece piece, int boardPosition);
+
+        /**
+         * Set the player color.
+         * @param whoIsWhite
+         */
         void setWhite(boolean whoIsWhite);
-        PieceType getWhite();
+
+        /**
+         * Get the color of the players pieces.
+         * @return
+         */
+        PieceType getPieceType();
 }

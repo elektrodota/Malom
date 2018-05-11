@@ -22,15 +22,27 @@ package Model;
  * #L%
  */
 
-
+/**
+ * GameLost class helps to decide whether the game is lost.
+ */
 public class GameLost {
 
     PutDownPhaseChecker putDownPhaseChecker;
+
+    /**
+     * Constructs GameLost object.
+     */
     public GameLost()
     {
         putDownPhaseChecker =new PutDownPhaseChecker();
 
     }
+
+    /**
+     * Helps to decide whether the Player is lost because of few pieces left.
+     * @param player
+     * @return
+     */
     public boolean isLost(Player player)
     {
         return  !putDownPhaseChecker.isPutDownPhase(player) &&player.getInBoard().size()<3;
