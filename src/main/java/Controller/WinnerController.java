@@ -4,7 +4,7 @@ package Controller;
  * #%L
  * Malom
  * %%
- * Copyright (C) 2018 GNU GENERAL PUBLIC LICENSE
+ * Copyright (C) 2018 University of Debrecen
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -29,8 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,38 +39,48 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controls main window.
+ * Controller class for win game window.
  */
-public class MainController implements Initializable {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class.getName());
+public class WinnerController implements Initializable{
+    private static final Logger LOGGER = LoggerFactory.getLogger(WinnerController.class.getName());
 
     @FXML
-    private AnchorPane szar;
-    @FXML
-    private Button newGameButton;
+    private TextField playerWinMessage;
+
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
     /**
-     * If new game Button pressed it switches to Game window.
-     * @param e
+     * Sets win message.
+     * @param message the win message
      */
+    public void setPlayerWinMessage(String message) {
+        this.playerWinMessage.setText(message);
+    }
+
     @FXML
-    private void toGameAction(ActionEvent e)
+    private void newGameAction(ActionEvent e)
     {
         Stage stage=(Stage) ((Node)(e.getSource())).getScene().getWindow();
         try{
             FXMLLoader fxmlLoader= new  FXMLLoader(getClass().getResource("/fxml/Game.fxml"));
             Parent root=(Parent)fxmlLoader.load();
-
-
             Scene sc=new Scene(root);
             GameController controller = fxmlLoader.<GameController>getController();
             controller.createInitialGame();
             stage.setScene(sc);
             stage.show();
+
         }catch (IOException err)
         {
             LOGGER.error(err.toString());

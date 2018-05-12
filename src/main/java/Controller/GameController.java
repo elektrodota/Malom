@@ -27,14 +27,20 @@ import View.GameDrawer;
 import View.Tile;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -65,6 +71,7 @@ public class GameController implements Initializable {
     private GameLost gameLost;
 
     private Move move;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -77,11 +84,11 @@ public class GameController implements Initializable {
         this.gameDrawer = new GameDrawer();
         this.movingPhaseChecker = new MovingPhaseChecker();
         this.millChecker = new MillChecker();
-        this.flyPhaseChecker=new FlyPhaseChecker();
-        move=new Move();
+        this.flyPhaseChecker = new FlyPhaseChecker();
+        move = new Move();
         from = null;
         isMill = false;
-        this.gameLost=new GameLost();
+        this.gameLost = new GameLost();
     }
 
 
@@ -115,27 +122,37 @@ public class GameController implements Initializable {
                             if (putDownPhaseChecker.isPutDownPhase(gameStatus.getPlayer1())) {
                                 move.putDown(gameStatus.getPlayer1(), tile);
                                 POne.setText("Remaining: " + gameStatus.getPlayer1().getInHand().size());
-                                isPlayer1=!isPlayer1;
+                                isPlayer1 = !isPlayer1;
                                 isMill = millChecker.isMill(tile, gameDrawer.getBoard());
                             } else {
                                 if (from != null) {
                                     if (movingPhaseChecker.isMovingPhase(gameStatus.getPlayer1()) && gameStatus.isNeighbour(from.getPosition(), tile.getPosition())) {
                                         move.movePiece(from, tile);
                                         isMill = millChecker.isMill(tile, gameDrawer.getBoard());
-                                        isPlayer1=!isPlayer1;
-                                        if(gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer2(),gameDrawer.getBoard(),gameStatus))
-                                        {
+                                        isPlayer1 = !isPlayer1;
+                                        if (gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer2(), gameDrawer.getBoard(), gameStatus)) {
+                                            Stage stage = (Stage) ((Node) (t.getSource())).getScene().getWindow();
+                                            try {
+                                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Win.fxml"));
+                                                Parent root = (Parent) fxmlLoader.load();
+                                                Scene sc = new Scene(root);
+                                                WinnerController controller = fxmlLoader.<WinnerController>getController();
+                                                controller.setPlayerWinMessage("Player 1 won");
+                                                stage.setScene(sc);
+                                                stage.show();
+
+                                            } catch (IOException err) {
+                                                LOGGER.error(err.toString());
+                                            }
                                             LOGGER.info("Player 1 won");
                                         }
 
                                     }
-                                    if(flyPhaseChecker.isFlyingPhase(gameStatus.getPlayer1()))
-                                    {
-                                        move.movePiece(from,tile);
-                                        isPlayer1=!isPlayer1;
-                                        isMill =millChecker.isMill(tile,gameDrawer.getBoard());
+                                    if (flyPhaseChecker.isFlyingPhase(gameStatus.getPlayer1())) {
+                                        move.movePiece(from, tile);
+                                        isPlayer1 = !isPlayer1;
+                                        isMill = millChecker.isMill(tile, gameDrawer.getBoard());
                                     }
-
 
 
                                 }
@@ -144,26 +161,37 @@ public class GameController implements Initializable {
                             if (putDownPhaseChecker.isPutDownPhase(gameStatus.getPlayer2())) {
                                 move.putDown(gameStatus.getPlayer2(), tile);
                                 PTwo.setText("Remaining: " + gameStatus.getPlayer2().getInHand().size());
-                                isPlayer1=!isPlayer1;
+                                isPlayer1 = !isPlayer1;
                                 isMill = millChecker.isMill(tile, gameDrawer.getBoard());
                             } else {
                                 if (from != null) {
                                     if (movingPhaseChecker.isMovingPhase(gameStatus.getPlayer2()) && gameStatus.isNeighbour(from.getPosition(), tile.getPosition())) {
                                         move.movePiece(from, tile);
-                                        isPlayer1=!isPlayer1;
+                                        isPlayer1 = !isPlayer1;
                                         isMill = millChecker.isMill(tile, gameDrawer.getBoard());
-                                        if(gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer1(),gameDrawer.getBoard(),gameStatus))
-                                        {
+                                        if (gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer1(), gameDrawer.getBoard(), gameStatus)) {
+                                            Stage stage = (Stage) ((Node) (t.getSource())).getScene().getWindow();
+                                            try {
+                                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Win.fxml"));
+                                                Parent root = (Parent) fxmlLoader.load();
+                                                Scene sc = new Scene(root);
+                                                WinnerController controller = fxmlLoader.<WinnerController>getController();
+                                                controller.setPlayerWinMessage("Player 2 won");
+                                                stage.setScene(sc);
+                                                stage.show();
+
+                                            } catch (IOException err) {
+                                                LOGGER.error(err.toString());
+                                            }
                                             LOGGER.info("Player 2 won");
                                         }
 
 
                                     }
-                                    if(flyPhaseChecker.isFlyingPhase(gameStatus.getPlayer2()))
-                                    {
-                                        move.movePiece(from,tile);
-                                        isPlayer1=!isPlayer1;
-                                        isMill =millChecker.isMill(tile,gameDrawer.getBoard());
+                                    if (flyPhaseChecker.isFlyingPhase(gameStatus.getPlayer2())) {
+                                        move.movePiece(from, tile);
+                                        isPlayer1 = !isPlayer1;
+                                        isMill = millChecker.isMill(tile, gameDrawer.getBoard());
 
 
                                     }
@@ -174,29 +202,56 @@ public class GameController implements Initializable {
                 } else {
 
                     if (isMill) {
-                        if (isPlayer1 && tile.getPiece().getPieceType() == gameStatus.getPlayer1().getPieceType()&& (!millChecker.isMill(tile, gameDrawer.getBoard())|| millChecker.isAllPiecesInMil(gameStatus.getPlayer1(),gameDrawer.getBoard())) ) {
+                        if (isPlayer1 && tile.getPiece().getPieceType() == gameStatus.getPlayer1().getPieceType() && (!millChecker.isMill(tile, gameDrawer.getBoard()) || millChecker.isAllPiecesInMil(gameStatus.getPlayer1(), gameDrawer.getBoard()))) {
                             Piece piece = tile.getPiece();
                             gameStatus.getPlayer1().removePiece(piece);
                             tile.removePiece();
-                            if(gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer1()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer1(),gameDrawer.getBoard(),gameStatus))
+                            if (gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer1()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer1(), gameDrawer.getBoard(), gameStatus)) {
+                                Stage stage = (Stage) ((Node) (t.getSource())).getScene().getWindow();
+                                try {
+                                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Win.fxml"));
+                                    Parent root = (Parent) fxmlLoader.load();
+                                    Scene sc = new Scene(root);
+                                    WinnerController controller = fxmlLoader.<WinnerController>getController();
+                                    controller.setPlayerWinMessage("Player 2 won");
+                                    stage.setScene(sc);
+                                    stage.show();
+
+                                } catch (IOException err) {
+                                    LOGGER.error(err.toString());
+                                }
                                 LOGGER.info("Player 2 won");
+                            }
                             isMill = false;
 
 
                         }
-                        if (!isPlayer1 &&   tile.getPiece().getPieceType() == gameStatus.getPlayer2().getPieceType() &&(!millChecker.isMill(tile, gameDrawer.getBoard()) || millChecker.isAllPiecesInMil(gameStatus.getPlayer2(),gameDrawer.getBoard()) )) {
+                        if (!isPlayer1 && tile.getPiece().getPieceType() == gameStatus.getPlayer2().getPieceType() && (!millChecker.isMill(tile, gameDrawer.getBoard()) || millChecker.isAllPiecesInMil(gameStatus.getPlayer2(), gameDrawer.getBoard()))) {
 
                             Piece piece = tile.getPiece();
                             gameStatus.getPlayer2().removePiece(piece);
                             tile.removePiece();
-                            if(gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer2()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer2(),gameDrawer.getBoard(),gameStatus))
+                            if (gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer2()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer2(), gameDrawer.getBoard(), gameStatus)) {
+                                Stage stage = (Stage) ((Node) (t.getSource())).getScene().getWindow();
+                                try {
+                                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Win.fxml"));
+                                    Parent root = (Parent) fxmlLoader.load();
+                                    Scene sc = new Scene(root);
+                                    WinnerController controller = fxmlLoader.<WinnerController>getController();
+                                    controller.setPlayerWinMessage("Player 1 won");
+                                    stage.setScene(sc);
+                                    stage.show();
+
+                                } catch (IOException err) {
+                                    LOGGER.error(err.toString());
+                                }
                                 LOGGER.info("Player 1 won");
+                            }
                             isMill = false;
                         }
                         from = null;
 
-                    }
-                    else{
+                    } else {
                         if (isPlayer1 && tile.getPiece().getPieceType() == PieceType.WHITE) {
                             setFrom(tile);
                         }
@@ -208,13 +263,10 @@ public class GameController implements Initializable {
                 }
 
 
-
             }
         };
         return event;
     }
-
-
 
 
     /**
