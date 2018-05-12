@@ -22,10 +22,22 @@ package Model;
  * #L%
  */
 
+/**
+ * PutDownPhaseChecker class is decides whether the game is in put down phase.
+ */
 public class PutDownPhaseChecker {
 
+    /**
+     * Constructs PutDownPhaseChecker object.
+     */
     public PutDownPhaseChecker()
     {}
+
+    /**
+     * Decides whether the player is in put down phase of the game.
+     * @param player the player.
+     * @return True if and only if the player is in put down phase of the game.
+     */
     public boolean isPutDownPhase(Player player)
     {
         return player.getInHand().size()>0;

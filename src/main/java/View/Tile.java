@@ -34,7 +34,6 @@ public class Tile extends StackPane {
     public static final int TILE_SIZE = 30;
     private Piece piece;
     public  Ellipse ell;
-
     public int getPosition() {
         return position;
     }

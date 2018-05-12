@@ -65,16 +65,17 @@ public class InitialGame {
     };
 
 
-
+    /**
+     * Constructs InitialGame object.
+     */
     public InitialGame() {
     }
 
     /**
      * Creates the starting @code{}GameStatus}.
-     * @return
-     * @throws IOException
+     * @return the initial game status.
      */
-    public GameStatus makeInitialPosition() throws IOException {
+    public GameStatus makeInitialPosition() {
         List<Piece> pieces1 = new ArrayList<Piece>();
         List<Piece> pieces2 = new ArrayList<Piece>();
        // Random random = new Random();

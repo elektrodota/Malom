@@ -26,6 +26,9 @@ package Model;
  * PieceType enum represents the color of a piece.
  */
 public enum PieceType {
+    /**
+     *  White and black pieces.
+     */
     WHITE,BLACK;
 
 }

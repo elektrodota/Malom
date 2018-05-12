@@ -40,12 +40,12 @@ public class FlyPhaseChecker {
 
     /**
      * Checks whether the Player can fly.
-     * @param player
-     * @return
+     * @param player the player.
+     * @return boolean about the player can fly.
      */
     public boolean isFlyingPhase(Player player)
     {
-        return !putDownPhaseChecker.isPutDownPhase(player) && !movingPhaseChecker.isMovingPhase(player) && player.getInBoard().size()==3;
+        return player.getInBoard().size()==3;
     }
 
 }

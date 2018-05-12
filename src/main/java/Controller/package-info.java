@@ -1,10 +1,14 @@
-package Model;
+/**
+ * Controller package contains classes for controll the communication between the user interface and the model.
+ */
+
+package Controller;
 
 /*-
  * #%L
  * Malom
  * %%
- * Copyright (C) 2018 GNU GENERAL PUBLIC LICENSE
+ * Copyright (C) 2018 University of Debrecen
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -21,20 +25,3 @@ package Model;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
-/**
- * PieceInterface interface represents an abstraction of a game piece.
- * PieceInterface interface provides methods to move a piece to a position and get the actual position of the piece.
- */
-public interface PieceInterface {
-    /**
-     * Moves the piece to the @code{position}.
-     * @param position the position where the piece has to move.
-     */
-    void moveToPosition(int position);
-
-    /**
-     * @return the actual position of the piece.
-     */
-    int getPosition();
-}

@@ -31,8 +31,8 @@ public class Piece implements PieceInterface {
 
     /**
      * Constructs Piece object.
-     * @param position
-     * @param pieceType
+     * @param position the position of the piece.
+     * @param pieceType the color of the piece.
      */
     public Piece(int position, PieceType pieceType)
     {
@@ -41,8 +41,7 @@ public class Piece implements PieceInterface {
     }
 
     /**
-     * Returns the color of the piece.
-     * @return
+     * @return the color of the piece.
      */
     public PieceType getPieceType() {
         return pieceType;

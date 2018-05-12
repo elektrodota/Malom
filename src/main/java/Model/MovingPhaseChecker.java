@@ -27,6 +27,10 @@ package Model;
  */
 public class MovingPhaseChecker {
     PutDownPhaseChecker putDownPhaseChecker;
+
+    /**
+     * Constructs MovingPhaseChecker object.
+     */
     public MovingPhaseChecker()
     {
         putDownPhaseChecker=new PutDownPhaseChecker();
@@ -34,11 +38,12 @@ public class MovingPhaseChecker {
 
     /**
      * Returns true if the player is in put down phase.
-     * @param player
-     * @return
+     * @param player the player.
+     * @return True if and only if the player is in put down phase.
      */
     public boolean isMovingPhase(Player player)
     {
+        System.out.println(player.getInBoard().size());
         return !putDownPhaseChecker.isPutDownPhase(player) && player.getInBoard().size()>3;
     }
 }

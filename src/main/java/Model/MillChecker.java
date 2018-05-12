@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class MillChecker {
 
-    public List<List<Integer>> mills;
+    private List<List<Integer>> mills;
 
     /**
      * Constructs MillChecker object.
@@ -61,9 +61,10 @@ public class MillChecker {
 
     /**
      * Return true if the Player has mill.
-     * @param tile
-     * @param board
-     * @return
+     *
+     * @param tile  The tile where a piece was moved.
+     * @param board The board of the game.
+     * @return True if and only if the player has mill.
      */
     public boolean isMill(Tile tile, Tile board[]) {
         int position = tile.getPosition();
@@ -87,5 +88,24 @@ public class MillChecker {
 
         }
         return false;
+    }
+
+    /**
+     * Checks if all the players pieces in mill.
+     *
+     * @param player the player.
+     * @param board  the board of the game.
+     * @return True if and only if all the players pieces in mill.
+     */
+    public boolean isAllPiecesInMil(Player player, Tile board[]) {
+
+        for (int i = 0; i < board.length; i++) {
+            Piece p = board[i].getPiece();
+            if (board[i].hasPiece())
+                if (p.getPieceType() == player.getPieceType() && !isMill(board[i], board))
+                    return false;
+        }
+        return true;
+
     }
 }

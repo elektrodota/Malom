@@ -36,8 +36,8 @@ public class Player implements PlayerInterface {
 
     /**
      * Contructs Player object.
-     * @param pieceLiest
-     * @param isWhite
+     * @param pieceLiest list of the pieces.
+     * @param isWhite is the player with white or black color.
      */
     public Player(List<Piece> pieceLiest, boolean isWhite)
     {
@@ -48,16 +48,14 @@ public class Player implements PlayerInterface {
     }
 
     /**
-     * Returns the pieces from the board.
-     * @return
+     * @return the pieces from the board.
      */
     public List<PieceInterface> getInBoard() {
         return inBoard;
     }
 
     /**
-     * Returns the pieces from the players hand.
-     * @return
+     * @return the pieces from the players hand.
      */
     public List<PieceInterface> getInHand() {
         return inHand;
@@ -77,6 +75,21 @@ public class Player implements PlayerInterface {
     public PieceType getPieceType()
     {
         return this.isWhite?PieceType.WHITE:PieceType.BLACK;
+    }
+
+    /**
+     * Removes the piece from the lise.
+     * @param p the piece.
+     */
+    public void removePiece(Piece p)
+    {
+        for(int i=0;i<inBoard.size();i++)
+        {
+            if(inBoard.get(i).getPosition()==p.getPosition())
+            {
+                inBoard.remove(i);
+            }
+        }
     }
 
 

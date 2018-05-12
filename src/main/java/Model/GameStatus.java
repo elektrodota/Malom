@@ -31,13 +31,18 @@ import java.util.List;
  */
 public class GameStatus {
     Player player1,player2;
+    /**
+     * The list of the neighbour tiles.
+     */
     public List<List<Integer>> Neighbours;
 
+
+
     /**
-     * Construct GameStatus object
-     * @param player1
-     * @param player2
-     * @param neighbours
+     * Construct GameStatus object.
+     * @param player1 Player1 for the game.
+     * @param player2 Player 2 for the game.
+     * @param neighbours The neighbour tiles positions.
      */
     public GameStatus(Player player1, Player player2, Integer[][] neighbours)
     {
@@ -48,8 +53,7 @@ public class GameStatus {
     }
 
     /**
-     * Returns player1 Player.
-     * @return
+     * @return Player1 player.
      */
     public Player getPlayer1() {
         return player1;
@@ -57,8 +61,7 @@ public class GameStatus {
 
 
     /**
-     * Returns player2 Player.
-     * @return
+     * @return player 2 Player
      */
     public Player getPlayer2() {
         return player2;
@@ -66,9 +69,9 @@ public class GameStatus {
 
     /**
      * Helps to decide whether @code{from} and @code{to} is neighbours.
-     * @param from
-     * @param to
-     * @return
+     * @param from the position from the move happens.
+     * @param to the position to the move happens.
+     * @return true if the two tile are neighbours.
      */
     public boolean isNeighbour(int from,int to)
     {

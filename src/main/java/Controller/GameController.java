@@ -35,15 +35,17 @@ import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- *  FXML Controller class for controll game changes.
+ * FXML controller class for controll game changes.
  */
 public class GameController implements Initializable {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameController.class.getName());
+    /**
+     * <code>linelength</code> is the length of the drawing lines.
+     */
     public static final int lineLength = 50;
     @FXML
     private AnchorPane pane;
@@ -59,29 +61,32 @@ public class GameController implements Initializable {
     private MillChecker millChecker;
     private Tile from;
     private boolean isMill;
+    private FlyPhaseChecker flyPhaseChecker;
+    private GameLost gameLost;
 
+    private Move move;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         InitialGame init = new InitialGame();
-        try {
-            gameStatus = init.makeInitialPosition();
-        } catch (IOException e) {
-            LOGGER.error(e.toString());
-        }
+        gameStatus = init.makeInitialPosition();
+
 
         isPlayer1 = true;
         this.putDownPhaseChecker = new PutDownPhaseChecker();
         this.gameDrawer = new GameDrawer();
         this.movingPhaseChecker = new MovingPhaseChecker();
         this.millChecker = new MillChecker();
+        this.flyPhaseChecker=new FlyPhaseChecker();
+        move=new Move();
         from = null;
         isMill = false;
+        this.gameLost=new GameLost();
     }
 
 
     /**
-     * Creates initial @code{gameStatus}
+     * Creates initial <code>GameStatus</code> .
      */
     public void createInitialGame() {
         gameDrawer.drawInitialGame(gameStatus);
@@ -95,7 +100,8 @@ public class GameController implements Initializable {
 
     /**
      * Event handler for tiles.
-     * @return EventHandler<MouseEvent>
+     *
+     * @return <code>EventHandler<MouseEvent></code>
      */
     private EventHandler<MouseEvent> ev() {
         EventHandler event = new EventHandler<MouseEvent>() {
@@ -107,96 +113,113 @@ public class GameController implements Initializable {
                     if (!isMill) {
                         if (isPlayer1) {
                             if (putDownPhaseChecker.isPutDownPhase(gameStatus.getPlayer1())) {
-                                putDown(gameStatus.getPlayer1(), tile);
+                                move.putDown(gameStatus.getPlayer1(), tile);
+                                POne.setText("Remaining: " + gameStatus.getPlayer1().getInHand().size());
+                                isPlayer1=!isPlayer1;
                                 isMill = millChecker.isMill(tile, gameDrawer.getBoard());
                             } else {
                                 if (from != null) {
                                     if (movingPhaseChecker.isMovingPhase(gameStatus.getPlayer1()) && gameStatus.isNeighbour(from.getPosition(), tile.getPosition())) {
-                                        movePiece(from,tile);
+                                        move.movePiece(from, tile);
                                         isMill = millChecker.isMill(tile, gameDrawer.getBoard());
+                                        isPlayer1=!isPlayer1;
+                                        if(gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer2(),gameDrawer.getBoard(),gameStatus))
+                                        {
+                                            LOGGER.info("Player 1 won");
+                                        }
+
                                     }
+                                    if(flyPhaseChecker.isFlyingPhase(gameStatus.getPlayer1()))
+                                    {
+                                        move.movePiece(from,tile);
+                                        isPlayer1=!isPlayer1;
+                                        isMill =millChecker.isMill(tile,gameDrawer.getBoard());
+                                    }
+
+
+
                                 }
                             }
                         } else {
                             if (putDownPhaseChecker.isPutDownPhase(gameStatus.getPlayer2())) {
-                                putDown(gameStatus.getPlayer2(), tile);
+                                move.putDown(gameStatus.getPlayer2(), tile);
                                 PTwo.setText("Remaining: " + gameStatus.getPlayer2().getInHand().size());
+                                isPlayer1=!isPlayer1;
                                 isMill = millChecker.isMill(tile, gameDrawer.getBoard());
                             } else {
                                 if (from != null) {
                                     if (movingPhaseChecker.isMovingPhase(gameStatus.getPlayer2()) && gameStatus.isNeighbour(from.getPosition(), tile.getPosition())) {
-                                        movePiece(from,tile);
+                                        move.movePiece(from, tile);
+                                        isPlayer1=!isPlayer1;
                                         isMill = millChecker.isMill(tile, gameDrawer.getBoard());
+                                        if(gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer1(),gameDrawer.getBoard(),gameStatus))
+                                        {
+                                            LOGGER.info("Player 2 won");
+                                        }
+
+
+                                    }
+                                    if(flyPhaseChecker.isFlyingPhase(gameStatus.getPlayer2()))
+                                    {
+                                        move.movePiece(from,tile);
+                                        isPlayer1=!isPlayer1;
+                                        isMill =millChecker.isMill(tile,gameDrawer.getBoard());
+
+
                                     }
                                 }
                             }
                         }
                     }
                 } else {
-                    if (isPlayer1 && tile.getPiece().getPieceType() == PieceType.WHITE) {
-                        setFrom(tile);
-                    }
-                    if (!isPlayer1 && tile.getPiece().getPieceType() == PieceType.BLACK) {
-                        setFrom(tile);
-                    }
+
                     if (isMill) {
-                        if (isPlayer1 && !millChecker.isMill(tile, gameDrawer.getBoard()) && tile.getPiece().getPieceType()==gameStatus.getPlayer1().getPieceType()) {
+                        if (isPlayer1 && tile.getPiece().getPieceType() == gameStatus.getPlayer1().getPieceType()&& (!millChecker.isMill(tile, gameDrawer.getBoard())|| millChecker.isAllPiecesInMil(gameStatus.getPlayer1(),gameDrawer.getBoard())) ) {
                             Piece piece = tile.getPiece();
-                            gameStatus.getPlayer1().getInBoard().remove(piece);
+                            gameStatus.getPlayer1().removePiece(piece);
                             tile.removePiece();
+                            if(gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer1()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer1(),gameDrawer.getBoard(),gameStatus))
+                                LOGGER.info("Player 2 won");
                             isMill = false;
 
+
                         }
-                        if (!isPlayer1 && !millChecker.isMill(tile, gameDrawer.getBoard())&& tile.getPiece().getPieceType()==gameStatus.getPlayer2().getPieceType()) {
+                        if (!isPlayer1 &&   tile.getPiece().getPieceType() == gameStatus.getPlayer2().getPieceType() &&(!millChecker.isMill(tile, gameDrawer.getBoard()) || millChecker.isAllPiecesInMil(gameStatus.getPlayer2(),gameDrawer.getBoard()) )) {
 
                             Piece piece = tile.getPiece();
-                            gameStatus.getPlayer2().getInBoard().remove(piece);
+                            gameStatus.getPlayer2().removePiece(piece);
                             tile.removePiece();
+                            if(gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer2()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer2(),gameDrawer.getBoard(),gameStatus))
+                                LOGGER.info("Player 1 won");
                             isMill = false;
                         }
-                        from=null;
+                        from = null;
 
+                    }
+                    else{
+                        if (isPlayer1 && tile.getPiece().getPieceType() == PieceType.WHITE) {
+                            setFrom(tile);
+                        }
+                        if (!isPlayer1 && tile.getPiece().getPieceType() == PieceType.BLACK) {
+                            setFrom(tile);
+                        }
                     }
 
                 }
+
+
 
             }
         };
         return event;
     }
 
-    /**
-     * The @code{player}Puts down a @code{piece} to the @code{tile}
-     * @param player The player who put down a piece.
-     * @param tile The tile where the player puts the piece.
-     */
-    private void putDown(Player player, Tile tile) {
-        Piece p = (Piece) player.getInHand().remove(0);
-        tile.setPiece(p);
-        player.getInBoard().add(p);
-        tile.setPiece(p);
-        isPlayer1 = !isPlayer1;
-    }
+
+
 
     /**
-     * Moves a piece from @code{tile} to @code{tile}.
-     * @param from
-     * @param to
-     */
-    private void movePiece(Tile from,Tile to) {
-        if (from != null) {
-            Piece p = from.getPiece();
-            to.setPiece(new Piece(p.getPosition(), p.getPieceType()));
-            from.removePiece();
-            from.setDefaultFill();
-            from = null;
-            isPlayer1 = !isPlayer1;
-        }
-
-    }
-
-    /**
-     * Sets @code{from tile}.
+     * Sett<code> Tile from</code>.
+     *
      * @param tile
      */
     private void setFrom(Tile tile) {

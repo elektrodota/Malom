@@ -30,12 +30,15 @@ import java.util.List;
  * Creates ArrayList from arrays.
  */
 public class ArrayToList {
+    /**
+     * Constructs ArrayToList object.
+     */
     public ArrayToList(){}
 
     /**
      * Returns a 2D ArrayList from an array.
-     * @param twoDArray
-     * @return
+     * @param twoDArray 2d array.
+     * @return the 2d list from 2d array.
      */
     public List<List<Integer>> twoDArrayToList(Integer[][] twoDArray) {
         List<List<Integer>> list = new ArrayList<List<Integer>>();

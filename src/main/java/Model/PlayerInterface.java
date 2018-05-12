@@ -37,13 +37,12 @@ public interface PlayerInterface {
 
         /**
          * Set the player color.
-         * @param whoIsWhite
+         * @param whoIsWhite is the player white.
          */
         void setWhite(boolean whoIsWhite);
 
         /**
-         * Get the color of the players pieces.
-         * @return
+         * @return the color of the players pieces.
          */
         PieceType getPieceType();
 }

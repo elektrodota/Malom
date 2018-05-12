@@ -22,6 +22,8 @@ package Model;
  * #L%
  */
 
+import View.Tile;
+
 /**
  * GameLost class helps to decide whether the game is lost.
  */
@@ -40,11 +42,51 @@ public class GameLost {
 
     /**
      * Helps to decide whether the Player is lost because of few pieces left.
-     * @param player
-     * @return
+     * @param player the player.
+     * @return a boolean about the game is lost.
      */
-    public boolean isLost(Player player)
+    public boolean isLostByFewPiecesLeft(Player player)
     {
-        return  !putDownPhaseChecker.isPutDownPhase(player) &&player.getInBoard().size()<3;
+        return !putDownPhaseChecker.isPutDownPhase(player) &&player.getInBoard().size()<3;
     }
+
+    /**
+     * isLostByNoValidMoveLeft method decides whether the player has valid move left.
+     * @param player the player.
+     * @param board the board.
+     * @param gs the game state.
+     * @return True if and only if the player has no valid move left.
+     */
+    public boolean isLostByNoValidMoveLeft(Player player, Tile[] board,GameStatus gs)
+    {
+        for(int i=0;i<board.length;i++)
+        {
+            if(board[i].hasPiece())
+            {
+                if(board[i].getPiece().getPieceType()==player.getPieceType() && hasLegalMove(board,gs,i))
+                {
+                   return false;
+
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param board the board of the game.
+     * @param gs the status of the game.
+     * @param i the tile position
+     * @return True if and only if the piece in position i has legal move.
+     */
+    public boolean hasLegalMove(Tile[] board,GameStatus gs,int i)
+    {
+        for(int j=0;j<gs.Neighbours.get(i).size();j++)
+        {
+            if(!board[gs.Neighbours.get(i).get(j)].hasPiece())
+                return true;
+        }
+        return false;
+    }
+
 }

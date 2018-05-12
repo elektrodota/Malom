@@ -16,7 +16,7 @@
     </organization>
 
     <description>
-        This program is a Nine Man's Morris game.
+        This program is a Nine Man's Morris game between two human player.
     </description>
 
     <properties>
@@ -43,7 +43,7 @@
 
     <licenses>
         <license>
-            <name>GNU General Public License  Version 3 (GPLv3)</name>
+            <name>GNU General Public License Version 3 (GPLv3)</name>
             <url>https://www.gnu.org/licenses/gpl.txt</url>
         </license>
     </licenses>
@@ -90,7 +90,6 @@
 
     <build>
         <plugins>
-            <!--érvényes megjegyzés
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -100,12 +99,11 @@
                         <id>validate</id>
                         <phase>validate</phase>
                         <configuration>
-                            <excludes>**/Controller/**/*</excludes>
+                            <excludes>**/View/**/*</excludes>
                             <configLocation>checkstyle.xml</configLocation>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
-                            <linkXRef>false</linkXRef>
                         </configuration>
                         <goals>
                             <goal>check</goal>
@@ -113,7 +111,6 @@
                     </execution>
                 </executions>
             </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -248,13 +245,48 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.1</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>target/jacoco.exec</dataFile>
+                            <outputDirectory>target/jacoco</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-
                 </configuration>
             </plugin>
         </plugins>
