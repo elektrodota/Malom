@@ -125,7 +125,7 @@ public class GameController implements Initializable {
                                 isPlayer1 = !isPlayer1;
                                 isMill = millChecker.isMill(tile, gameDrawer.getBoard());
                             } else {
-                                if (from != null) {
+                                if (from != null ) {
                                     if (movingPhaseChecker.isMovingPhase(gameStatus.getPlayer1()) && gameStatus.isNeighbour(from.getPosition(), tile.getPosition())) {
                                         move.movePiece(from, tile);
                                         isMill = millChecker.isMill(tile, gameDrawer.getBoard());
@@ -164,7 +164,7 @@ public class GameController implements Initializable {
                                 isPlayer1 = !isPlayer1;
                                 isMill = millChecker.isMill(tile, gameDrawer.getBoard());
                             } else {
-                                if (from != null) {
+                                if (from != null  ) {
                                     if (movingPhaseChecker.isMovingPhase(gameStatus.getPlayer2()) && gameStatus.isNeighbour(from.getPosition(), tile.getPosition())) {
                                         move.movePiece(from, tile);
                                         isPlayer1 = !isPlayer1;
@@ -201,7 +201,7 @@ public class GameController implements Initializable {
                     }
                 } else {
 
-                    if (isMill) {
+                    if (isMill ) {
                         if (isPlayer1 && tile.getPiece().getPieceType() == gameStatus.getPlayer1().getPieceType() && (!millChecker.isMill(tile, gameDrawer.getBoard()) || millChecker.isAllPiecesInMil(gameStatus.getPlayer1(), gameDrawer.getBoard()))) {
                             Piece piece = tile.getPiece();
                             gameStatus.getPlayer1().removePiece(piece);

@@ -67,25 +67,27 @@ public class MillChecker {
      * @return True if and only if the player has mill.
      */
     public boolean isMill(Tile tile, Tile board[]) {
-        int position = tile.getPosition();
-        for (List<Integer> list : mills) {
-            if (list.contains(position)) {
-                boolean result = true;
-                for (int i : list) {
-                    if (board[i].hasPiece()) {
-                        if (i != position && board[i].getPiece().getPieceType() != board[position].getPiece().getPieceType())
+        if(tile.hasPiece()) {
+            int position = tile.getPosition();
+            for (List<Integer> list : mills) {
+                if (list.contains(position)) {
+                    boolean result = true;
+                    for (int i : list) {
+                        if (board[i].hasPiece()) {
+                            if (i != position && board[i].getPiece().getPieceType() != board[position].getPiece().getPieceType())
+                                result = false;
+                        } else
                             result = false;
-                    } else
-                        result = false;
 
+
+                    }
+                    if (result)
+                        return true;
 
                 }
-                if (result)
-                    return true;
+
 
             }
-
-
         }
         return false;
     }

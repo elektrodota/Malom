@@ -54,7 +54,7 @@ public class Move {
      * @param to the Tile where the piece moves.
      */
     public void movePiece(Tile from, Tile to) {
-        if (from != null && !to.hasPiece()) {
+        if (from != null && !to.hasPiece() && from.hasPiece()) {
             Piece p = from.getPiece();
             p.moveToPosition(to.getPosition());
             to.setPiece(p);
