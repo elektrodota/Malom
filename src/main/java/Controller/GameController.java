@@ -163,6 +163,7 @@ public class GameController implements Initializable {
                                 PTwo.setText("Remaining: " + gameStatus.getPlayer2().getInHand().size());
                                 isPlayer1 = !isPlayer1;
                                 isMill = millChecker.isMill(tile, gameDrawer.getBoard());
+                               
                             } else {
                                 if (from != null  ) {
                                     if (movingPhaseChecker.isMovingPhase(gameStatus.getPlayer2()) && gameStatus.isNeighbour(from.getPosition(), tile.getPosition())) {
@@ -206,6 +207,7 @@ public class GameController implements Initializable {
                             Piece piece = tile.getPiece();
                             gameStatus.getPlayer1().removePiece(piece);
                             tile.removePiece();
+                            LOGGER.info("Player 2 has mill.");
                             if (gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer1()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer1(), gameDrawer.getBoard(), gameStatus)) {
                                 Stage stage = (Stage) ((Node) (t.getSource())).getScene().getWindow();
                                 try {
@@ -231,6 +233,7 @@ public class GameController implements Initializable {
                             Piece piece = tile.getPiece();
                             gameStatus.getPlayer2().removePiece(piece);
                             tile.removePiece();
+                             LOGGER.info("Player 1 has mill.");
                             if (gameLost.isLostByFewPiecesLeft(gameStatus.getPlayer2()) || gameLost.isLostByNoValidMoveLeft(gameStatus.getPlayer2(), gameDrawer.getBoard(), gameStatus)) {
                                 Stage stage = (Stage) ((Node) (t.getSource())).getScene().getWindow();
                                 try {

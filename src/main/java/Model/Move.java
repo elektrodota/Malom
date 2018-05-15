@@ -22,13 +22,18 @@ package Model;
  * #L%
  */
 
+import Controller.GameController;
 import View.Tile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Move class to make moves in the board.
  */
 public class Move {
 
+     private static final Logger LOGGER = LoggerFactory.getLogger(Move.class.getName());
+   
     /**
      * Constructs move object.
      */
@@ -45,6 +50,10 @@ public class Move {
             p.moveToPosition(tile.getPosition());
             tile.setPiece(p);
             player.getInBoard().add(p);
+            if(tile.getPiece().getPieceType()==PieceType.WHITE)
+                LOGGER.info("White put down a piece to "+tile.getPosition()+". " );
+            else
+                LOGGER.info("Black put down a piece to "+tile.getPosition()+". " );
         }
     }
     /**
@@ -60,6 +69,11 @@ public class Move {
             to.setPiece(p);
             from.removePiece();
             from.setDefaultFill();
+            
+            if(to.getPiece().getPieceType()==PieceType.WHITE)
+                LOGGER.info("White a piece from "+from.getPosition()+" to "+to.getPosition()+". " );
+            else
+                LOGGER.info("Black a piece from "+from.getPosition()+" to "+to.getPosition()+". " );
         }
 
     }
