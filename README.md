@@ -7,3 +7,4 @@ Testing: mvn test.
 Making the jar file: mvn package.
 
 Running the program: mvn exec:java.
+-Djava.util.logging.config.file=logging.properties
